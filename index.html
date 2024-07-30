@@ -1,15 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Javascript</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .gap {
+            gap: 40px;
+        }
+
+        .color-white {
+            color: white;
+        }
+
+        .font-size {
+            font-size: 10px;
+        }
+
+        .align-content {
+            align-content: center;
+        }
+
+        .d-flex {
+            display: flex
+        }
+
+        #colors {
+            width: 100px;
+            height: 100px;
+            background-color: black;
+        }
+
+        .color-picker {
+            background: black;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            border: none
+        }
+
+        input[type=color] {
+            width: 1px;
+            height: 1px;
+        }
+    </style>
 </head>
+
 <body>
     <script src="index.js"></script>
+    <div id="colors"></div>
+    <div class="gap d-flex">
+        <div class="color-picker d-flex">
+            <input type="color" id="colorInput" />
+            <label for="colorInput" class="color-white font-size align-content">color</label>
+        </div>
+        <button class="color-picker color-white font-size">color</button>
+    </div>
+
     <script>
-        const baseUrl = document.implementation;
-        console.log("baseUrl",baseUrl);
+        // color picker
+        const input = document.querySelector("input[type=color]");
+        input.addEventListener("input", (e) => {
+            localStorage.setItem("color", JSON.stringify(e.target.value))
+            updateColor(e.target.value)
+        })
+        window.addEventListener("load",() => {
+            const getColor = JSON.parse(localStorage.getItem("color"))
+            updateColor(getColor)
+        })
+
+        function updateColor (color) {
+            document.getElementById("colors").style.backgroundColor = color;
+            input.parentElement.style.backgroundColor = color;
+            document.getElementsByTagName("button")[0].style.backgroundColor = color;
+        }
     </script>
 </body>
+
 </html>
